@@ -1,0 +1,98 @@
+@Metadata.layer: #CORE
+@UI.headerInfo.title.type: #STANDARD
+@UI.headerInfo.title.value: 'ProductId'
+@UI.headerInfo.description.type: #STANDARD
+@UI.headerInfo.description.value: 'ProductId'
+annotate view ZC_YPRODUCT with
+{
+  @UI.facet: [ {
+    label: 'General Information', 
+    id: 'GeneralInfo', 
+    purpose: #STANDARD, 
+    position: 10 , 
+    type: #IDENTIFICATION_REFERENCE
+  } ]
+  @UI.identification: [ {
+    position: 10 , 
+    label: 'Product ID'
+  } ]
+  @UI.lineItem: [ {
+    position: 10 , 
+    label: 'Product ID'
+  } ]
+  @UI.selectionField: [ {
+    position: 10 
+  } ]
+  ProductId;
+  
+  @UI.identification: [ {
+    position: 20 , 
+    label: 'Product Name'
+  } ]
+  @UI.lineItem: [ {
+    position: 20 , 
+    label: 'Product Name'
+  } ]
+  @UI.selectionField: [ {
+    position: 20 
+  } ]
+  ProductName;
+  
+  @EndUserText.label: 'Price'
+  @UI.identification: [ {
+    position: 30 
+  } ]
+  @UI.lineItem: [ {
+    position: 30 
+  } ]
+  Price;
+  
+  @EndUserText.label: 'Stock'
+  @UI.identification: [ {
+    position: 40 
+  } ]
+  @UI.lineItem: [ {
+    position: 40 
+  } ]
+  Stock;
+  
+  @UI.identification: [ {
+    position: 50 , 
+    label: 'Created By'
+  } ]
+  @UI.lineItem: [ {
+    position: 50 , 
+    label: 'Created By'
+  } ]
+  CreatedBy;
+  
+  @UI.identification: [ {
+    position: 60 , 
+    label: 'Created On'
+  } ]
+  @UI.lineItem: [ {
+    position: 60 , 
+    label: 'Created On'
+  } ]
+  CreatedAt;
+  
+  @UI.identification: [ {
+    position: 70 , 
+    label: 'Changed By'
+  } ]
+  @UI.lineItem: [ {
+    position: 70 , 
+    label: 'Changed By'
+  } ]
+  LastChangedBy;
+  
+  @UI.identification: [ {
+    position: 90 , 
+    label: 'Changed On'
+  } ]
+  @UI.lineItem: [ {
+    position: 90 , 
+    label: 'Changed On'
+  } ]
+  LastChangedAt;
+}

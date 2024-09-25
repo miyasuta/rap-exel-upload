@@ -1,0 +1,53 @@
+managed implementation in class ZBP_R_YPRODUCT unique;
+strict ( 2 );
+with draft;
+define behavior for ZR_YPRODUCT alias Product
+persistent table ZYPRODUCT
+draft table ZYPRODUCT_D
+etag master LocalLastChangedAt
+lock master total etag LastChangedAt
+authorization master( global )
+
+{
+  field ( mandatory : create )
+   ProductId;
+
+  field ( readonly )
+   CreatedBy,
+   CreatedAt,
+   LastChangedBy,
+   LocalLastChangedAt,
+   LastChangedAt;
+
+  field ( readonly : update )
+   ProductId;
+
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  static action fileUpload parameter ZI_FILE_ABS;
+  static action downloadFile result[1] ZI_FILE_ABS;
+
+  mapping for ZYPRODUCT
+  {
+    ProductId = product_id;
+    ProductName = product_name;
+    Price = price;
+    Currency = currency;
+    Stock = stock;
+    UnitOfMeasure = unit_of_measure;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LocalLastChangedAt = local_last_changed_at;
+    LastChangedAt = last_changed_at;
+  }
+}

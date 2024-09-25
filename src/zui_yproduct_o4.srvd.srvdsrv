@@ -1,0 +1,11 @@
+@EndUserText: {
+  label: 'Service Definition for ZC_YPRODUCT'
+}
+@ObjectModel: {
+  leadingEntity: {
+    name: 'ZC_YPRODUCT'
+  }
+}
+define service ZUI_YPRODUCT_O4 provider contracts odata_v4_ui {
+  expose ZC_YPRODUCT as Product;
+}

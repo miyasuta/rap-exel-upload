@@ -1,0 +1,20 @@
+projection implementation in class ZBP_C_YPRODUCT unique;
+strict ( 2 );
+use draft;
+define behavior for ZC_YPRODUCT alias Product
+use etag
+
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+
+  use action fileUpload;
+  use action downloadFile;
+}
