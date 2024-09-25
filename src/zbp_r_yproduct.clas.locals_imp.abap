@@ -27,6 +27,13 @@ CLASS lhc_zr_yproduct DEFINITION INHERITING FROM cl_abap_behavior_handler.
         IMPORTING keys FOR ACTION Product~fileUpload,
       downloadFile FOR MODIFY
         IMPORTING keys FOR ACTION Product~downloadFile RESULT result.
+
+    METHODS convert_unit importing i_unit type msehi
+                         RETURNING VALUE(r_unit) type msehi.
+    METHODS convert_price importing i_price type zyproduct-price
+                                    i_currency type zyproduct-currency
+                          RETURNING VALUE(r_price) type zyproduct-price.
+
 ENDCLASS.
 
 CLASS lhc_zr_yproduct IMPLEMENTATION.
@@ -54,6 +61,14 @@ CLASS lhc_zr_yproduct IMPLEMENTATION.
 
     "create new entity
     lt_product_c = CORRESPONDING #( lt_product ).
+
+    loop at lt_product_c ASSIGNING FIELD-SYMBOL(<product>).
+      <product>-UnitOfMeasure = convert_unit( <product>-UnitOfMeasure ).
+      <product>-price = convert_price(
+                          i_price    = <product>-price
+                          i_currency = <product>-currency ).
+    endloop.
+
     MODIFY ENTITIES OF zr_yproduct IN LOCAL MODE
     ENTITY Product
     CREATE AUTO FILL CID FIELDS ( ProductId
@@ -108,6 +123,23 @@ CLASS lhc_zr_yproduct IMPLEMENTATION.
                                            mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' )
                        ) ).
 
+  ENDMETHOD.
+
+  METHOD convert_unit.
+    select single UnitOfMeasure from I_UnitOfMeasure
+      where UnitOfMeasure_E = @i_unit
+      into @r_unit.
+
+  ENDMETHOD.
+
+  METHOD convert_price.
+* https://userapps.support.sap.com/sap/support/knowledge/en/2973787
+    select single * from i_currency
+    where currency = @i_currency
+    into @data(ls_curx).
+
+    check sy-subrc is initial.
+    r_price = i_price * ( 10 ** ls_curx-decimals / 100 ).
   ENDMETHOD.
 
 ENDCLASS.
