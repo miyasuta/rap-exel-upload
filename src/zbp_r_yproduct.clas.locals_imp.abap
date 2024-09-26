@@ -109,12 +109,12 @@ CLASS lhc_zr_yproduct IMPLEMENTATION.
         )->execute( ).
 
     DATA(lv_file_content) = lo_write_access->get_file_content( ).
-    DATA(lv_base64_encoding) = xco_cp=>xstring( lv_file_content
-        )->as_string( xco_cp_binary=>text_encoding->base64
-        )->value.
 
-* base64でエンコードすると、レスポンスのfileContentが空になる
-* エンコードしないとatobでエラーになる
+    " base64でエンコードすると、レスポンスのfileContentが空になる
+*    DATA(lv_base64_encoding) = xco_cp=>xstring( lv_file_content
+*        )->as_string( xco_cp_binary=>text_encoding->base64
+*        )->value.
+
     result = VALUE #( FOR key IN keys (
                         %cid = key-%cid
                         %param = VALUE #(  fileContent = lv_file_content
